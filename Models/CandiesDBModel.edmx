@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CandiesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CandiesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ProductCategories">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="displayName" Type="varchar" MaxLength="50" />
           <Property Name="isActive" Type="tinyint" />
         </EntityType>
@@ -17,7 +17,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="isActive" Type="tinyint" />
           <Property Name="displayName" Type="varchar" MaxLength="50" />
           <Property Name="description" Type="text" />
@@ -26,6 +26,7 @@
           <Property Name="quantityPerPackage" Type="int" />
           <Property Name="keywords" Type="varchar" MaxLength="128" />
           <Property Name="imageURL" Type="varchar" MaxLength="255" />
+          <Property Name="productCategoryId" Type="int" />
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
@@ -52,14 +53,16 @@
           <Property Name="productPrice" Type="money" />
           <Property Name="status" Type="tinyint" />
         </EntityType>
+        <Function Name="GetProductsByCategoryId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="categoryId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="CandiesDBModelStoreContainer">
           <EntitySet Name="ProductCategories" EntityType="Self.ProductCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShoppingCartItem" EntityType="Self.ShoppingCartItem" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CandiesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -84,6 +87,7 @@
           <Property Name="quantityPerPackage" Type="Int32" />
           <Property Name="keywords" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="imageURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="productCategoryId" Type="Int32" />
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
@@ -115,7 +119,23 @@
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
           <EntitySet Name="ShoppingCartItems" EntityType="Self.ShoppingCartItem" />
+          <FunctionImport Name="GetProductsByCategoryId" ReturnType="Collection(CandiesDBModel.GetProductsByCategoryId_Result)">
+          <Parameter Name="categoryId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="GetProductsByCategoryId_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Byte" Name="isActive" Nullable="true" />
+          <Property Type="String" Name="displayName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="Max" />
+          <Property Type="Decimal" Name="itemPrice" Nullable="true" Precision="19" />
+          <Property Type="String" Name="itemPackageType" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="quantityPerPackage" Nullable="true" />
+          <Property Type="String" Name="keywords" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="imageURL" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="productCategoryId" Nullable="true" />
+          <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -134,6 +154,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="CandiesDBModel.Product">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="productCategoryId" ColumnName="productCategoryId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="displayName" ColumnName="displayName" />
@@ -173,6 +194,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetProductsByCategoryId" FunctionName="CandiesDBModel.Store.GetProductsByCategoryId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CandiesDBModel.GetProductsByCategoryId_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="itemPrice" ColumnName="itemPrice" />
+                <ScalarProperty Name="itemPackageType" ColumnName="itemPackageType" />
+                <ScalarProperty Name="quantityPerPackage" ColumnName="quantityPerPackage" />
+                <ScalarProperty Name="keywords" ColumnName="keywords" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
+                <ScalarProperty Name="productCategoryId" ColumnName="productCategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

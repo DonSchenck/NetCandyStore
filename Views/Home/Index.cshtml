@@ -11,7 +11,7 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(item.displayName, "Index", "Search", new { categoryId = item.Id }, null)
+                    @Html.ActionLink(item.displayName, "SearchByCategory", "Search", new { categoryId = item.Id }, null)
                 </td>
             </tr>
         }

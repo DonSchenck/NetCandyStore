@@ -12,6 +12,8 @@ namespace NetCandyStore.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class CandiesDBEntities : DbContext
     {
@@ -29,5 +31,14 @@ namespace NetCandyStore.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+    
+        public virtual ObjectResult<GetProductsByCategoryId_Result> GetProductsByCategoryId(Nullable<int> categoryId)
+        {
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("categoryId", categoryId) :
+                new ObjectParameter("categoryId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsByCategoryId_Result>("GetProductsByCategoryId", categoryIdParameter);
+        }
     }
 }
