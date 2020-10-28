@@ -1,0 +1,19 @@
+﻿@model IEnumerable<NetCandyStore.Models.ProductCategory>
+
+<!DOCTYPE html>
+
+
+    <p>
+        Choose a Category
+    </p>
+    <table class="table">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.displayName, "Index", "Search", new { categoryId = item.Id }, null)
+                </td>
+            </tr>
+        }
+
+    </table>

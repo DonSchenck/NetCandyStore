@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CandiesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ProductCategories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="displayName" Type="varchar" MaxLength="50" />
+          <Property Name="isActive" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="isActive" Type="tinyint" />
+          <Property Name="displayName" Type="varchar" MaxLength="50" />
+          <Property Name="description" Type="text" />
+          <Property Name="itemPrice" Type="money" />
+          <Property Name="itemPackageType" Type="varchar" MaxLength="15" />
+          <Property Name="quantityPerPackage" Type="int" />
+          <Property Name="keywords" Type="varchar" MaxLength="128" />
+          <Property Name="imageURL" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="cartGUID" />
+          </Key>
+          <Property Name="cartGUID" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="cartStatus" Type="tinyint" Nullable="false" />
+          <Property Name="buyerName" Type="varchar" MaxLength="50" />
+          <Property Name="buyerAddress1" Type="varchar" MaxLength="50" />
+          <Property Name="buyerAddress2" Type="varchar" MaxLength="50" />
+          <Property Name="buyerCity" Type="varchar" MaxLength="50" />
+          <Property Name="buyerState" Type="char" MaxLength="2" />
+          <Property Name="buyerZipCode" Type="char" MaxLength="5" />
+          <Property Name="cartTotal" Type="money" />
+        </EntityType>
+        <EntityType Name="ShoppingCartItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="cartGUID" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="productID" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="productPrice" Type="money" />
+          <Property Name="status" Type="tinyint" />
+        </EntityType>
+        <EntityContainer Name="CandiesDBModelStoreContainer">
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCartItem" EntityType="Self.ShoppingCartItem" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CandiesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="displayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Byte" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="isActive" Type="Byte" />
+          <Property Name="displayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="itemPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="itemPackageType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="quantityPerPackage" Type="Int32" />
+          <Property Name="keywords" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="imageURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="cartGUID" />
+          </Key>
+          <Property Name="cartGUID" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cartStatus" Type="Byte" Nullable="false" />
+          <Property Name="buyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="buyerAddress1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="buyerAddress2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="buyerCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="buyerState" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="buyerZipCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="cartTotal" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="ShoppingCartItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="cartGUID" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="productID" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="productPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="status" Type="Byte" />
+        </EntityType>
+        <EntityContainer Name="CandiesDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
+          <EntitySet Name="ShoppingCartItems" EntityType="Self.ShoppingCartItem" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CandiesDBModelStoreContainer" CdmEntityContainer="CandiesDBEntities">
+          <EntitySetMapping Name="ProductCategories">
+            <EntityTypeMapping TypeName="CandiesDBModel.ProductCategory">
+              <MappingFragment StoreEntitySet="ProductCategories">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="CandiesDBModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="itemPrice" ColumnName="itemPrice" />
+                <ScalarProperty Name="itemPackageType" ColumnName="itemPackageType" />
+                <ScalarProperty Name="quantityPerPackage" ColumnName="quantityPerPackage" />
+                <ScalarProperty Name="keywords" ColumnName="keywords" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCarts">
+            <EntityTypeMapping TypeName="CandiesDBModel.ShoppingCart">
+              <MappingFragment StoreEntitySet="ShoppingCart">
+                <ScalarProperty Name="cartGUID" ColumnName="cartGUID" />
+                <ScalarProperty Name="cartStatus" ColumnName="cartStatus" />
+                <ScalarProperty Name="buyerName" ColumnName="buyerName" />
+                <ScalarProperty Name="buyerAddress1" ColumnName="buyerAddress1" />
+                <ScalarProperty Name="buyerAddress2" ColumnName="buyerAddress2" />
+                <ScalarProperty Name="buyerCity" ColumnName="buyerCity" />
+                <ScalarProperty Name="buyerState" ColumnName="buyerState" />
+                <ScalarProperty Name="buyerZipCode" ColumnName="buyerZipCode" />
+                <ScalarProperty Name="cartTotal" ColumnName="cartTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCartItems">
+            <EntityTypeMapping TypeName="CandiesDBModel.ShoppingCartItem">
+              <MappingFragment StoreEntitySet="ShoppingCartItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="cartGUID" ColumnName="cartGUID" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="productPrice" ColumnName="productPrice" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
