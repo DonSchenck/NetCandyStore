@@ -12,7 +12,13 @@ namespace NetCandyStore.Controllers
         private CandiesDBEntities db = new CandiesDBEntities();
         public ActionResult Index()
         {
-            return View(db.ProductCategories.ToList());
+            try
+            {
+                return View(db.ProductCategories.ToList());
+            } catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         public ActionResult About()
