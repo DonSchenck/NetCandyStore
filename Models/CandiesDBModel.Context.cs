@@ -28,9 +28,11 @@ namespace NetCandyStore.Models
         }
     
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public virtual DbSet<StatusCode> StatusCodes { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<vwProduct> vwProducts { get; set; }
     
         public virtual ObjectResult<GetProductsByCategoryId_Result> GetProductsByCategoryId(Nullable<int> categoryId)
         {
@@ -39,6 +41,15 @@ namespace NetCandyStore.Models
                 new ObjectParameter("categoryId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsByCategoryId_Result>("GetProductsByCategoryId", categoryIdParameter);
+        }
+    
+        public virtual ObjectResult<GetProductsBySearch_Result> GetProductsBySearch(string searchTerm)
+        {
+            var searchTermParameter = searchTerm != null ?
+                new ObjectParameter("searchTerm", searchTerm) :
+                new ObjectParameter("searchTerm", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsBySearch_Result>("GetProductsBySearch", searchTermParameter);
         }
     }
 }

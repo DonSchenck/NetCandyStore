@@ -10,9 +10,8 @@
 namespace NetCandyStore.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Product
+    public partial class GetProductsBySearch_Result
     {
         public int Id { get; set; }
         public Nullable<byte> statusCodeId { get; set; }
@@ -24,5 +23,7 @@ namespace NetCandyStore.Models
         public string keywords { get; set; }
         public string imageURL { get; set; }
         public Nullable<int> productCategoryId { get; set; }
+        public string statusCodeDescription { get; set; }
+        public string ProductCategory { get; set; }
     }
 }

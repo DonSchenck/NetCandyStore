@@ -18,7 +18,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="isActive" Type="tinyint" />
+          <Property Name="statusCodeId" Type="tinyint" />
           <Property Name="displayName" Type="varchar" MaxLength="50" />
           <Property Name="description" Type="text" />
           <Property Name="itemPrice" Type="money" />
@@ -33,7 +33,7 @@
             <PropertyRef Name="cartGUID" />
           </Key>
           <Property Name="cartGUID" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="cartStatus" Type="tinyint" Nullable="false" />
+          <Property Name="cartStatus" Type="int" Nullable="false" />
           <Property Name="buyerName" Type="varchar" MaxLength="50" />
           <Property Name="buyerAddress1" Type="varchar" MaxLength="50" />
           <Property Name="buyerAddress2" Type="varchar" MaxLength="50" />
@@ -53,14 +53,60 @@
           <Property Name="productPrice" Type="money" />
           <Property Name="status" Type="tinyint" />
         </EntityType>
+        <EntityType Name="StatusCodes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="statusCodeDescription" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CandiesDB.dbo.vwProducts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwProducts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="statusCodeId" Type="tinyint" />
+          <Property Name="displayName" Type="varchar" MaxLength="50" />
+          <Property Name="description" Type="text" />
+          <Property Name="itemPrice" Type="money" />
+          <Property Name="itemPackageType" Type="varchar" MaxLength="15" />
+          <Property Name="quantityPerPackage" Type="int" />
+          <Property Name="keywords" Type="varchar" MaxLength="128" />
+          <Property Name="imageURL" Type="varchar" MaxLength="255" />
+          <Property Name="productCategoryId" Type="int" />
+          <Property Name="statusCodeDescription" Type="varchar" MaxLength="20" />
+          <Property Name="ProductCategory" Type="varchar" MaxLength="50" />
+        </EntityType>
         <Function Name="GetProductsByCategoryId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="categoryId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetProductsBySearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="searchTerm" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="CandiesDBModelStoreContainer">
           <EntitySet Name="ProductCategories" EntityType="Self.ProductCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShoppingCartItem" EntityType="Self.ShoppingCartItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusCodes" EntityType="Self.StatusCodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwProducts" EntityType="Self.vwProducts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwProducts].[Id] AS [Id], 
+    [vwProducts].[statusCodeId] AS [statusCodeId], 
+    [vwProducts].[displayName] AS [displayName], 
+    [vwProducts].[description] AS [description], 
+    [vwProducts].[itemPrice] AS [itemPrice], 
+    [vwProducts].[itemPackageType] AS [itemPackageType], 
+    [vwProducts].[quantityPerPackage] AS [quantityPerPackage], 
+    [vwProducts].[keywords] AS [keywords], 
+    [vwProducts].[imageURL] AS [imageURL], 
+    [vwProducts].[productCategoryId] AS [productCategoryId], 
+    [vwProducts].[statusCodeDescription] AS [statusCodeDescription], 
+    [vwProducts].[ProductCategory] AS [ProductCategory]
+    FROM [dbo].[vwProducts] AS [vwProducts]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -73,21 +119,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="displayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isActive" Type="Byte" />
-        </EntityType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="isActive" Type="Byte" />
-          <Property Name="displayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="itemPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="itemPackageType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="quantityPerPackage" Type="Int32" />
-          <Property Name="keywords" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="imageURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="productCategoryId" Type="Int32" />
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
@@ -116,16 +147,60 @@
         </EntityType>
         <EntityContainer Name="CandiesDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
           <EntitySet Name="ShoppingCartItems" EntityType="Self.ShoppingCartItem" />
+          <EntitySet Name="StatusCodes" EntityType="CandiesDBModel.StatusCode" />
+          <EntitySet Name="Products" EntityType="CandiesDBModel.Product" />
+          <EntitySet Name="vwProducts" EntityType="CandiesDBModel.vwProduct" />
           <FunctionImport Name="GetProductsByCategoryId" ReturnType="Collection(CandiesDBModel.GetProductsByCategoryId_Result)">
-          <Parameter Name="categoryId" Mode="In" Type="Int32" />
+            <Parameter Name="categoryId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProductsBySearch" ReturnType="Collection(CandiesDBModel.GetProductsBySearch_Result)">
+            <Parameter Name="searchTerm" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <EntityType Name="StatusCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statusCodeDescription" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statusCodeId" Type="Byte" />
+          <Property Name="displayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="itemPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="itemPackageType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="quantityPerPackage" Type="Int32" />
+          <Property Name="keywords" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="imageURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="productCategoryId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vwProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="statusCodeId" Type="Byte" />
+          <Property Name="displayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="itemPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="itemPackageType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="quantityPerPackage" Type="Int32" />
+          <Property Name="keywords" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="imageURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="productCategoryId" Type="Int32" />
+          <Property Name="statusCodeDescription" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ProductCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <ComplexType Name="GetProductsByCategoryId_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="Byte" Name="isActive" Nullable="true" />
+          <Property Type="Byte" Name="statusCodeId" Nullable="true" />
           <Property Type="String" Name="displayName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="description" Nullable="true" MaxLength="Max" />
           <Property Type="Decimal" Name="itemPrice" Nullable="true" Precision="19" />
@@ -134,7 +209,22 @@
           <Property Type="String" Name="keywords" Nullable="true" MaxLength="128" />
           <Property Type="String" Name="imageURL" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="productCategoryId" Nullable="true" />
-          <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="statusCodeDescription" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ProductCategory" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetProductsBySearch_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Byte" Name="statusCodeId" Nullable="true" />
+          <Property Type="String" Name="displayName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="Max" />
+          <Property Type="Decimal" Name="itemPrice" Nullable="true" Precision="19" />
+          <Property Type="String" Name="itemPackageType" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="quantityPerPackage" Nullable="true" />
+          <Property Type="String" Name="keywords" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="imageURL" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="productCategoryId" Nullable="true" />
+          <Property Type="String" Name="statusCodeDescription" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ProductCategory" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -148,22 +238,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="displayName" ColumnName="displayName" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="CandiesDBModel.Product">
-              <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="productCategoryId" ColumnName="productCategoryId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-                <ScalarProperty Name="displayName" ColumnName="displayName" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="itemPrice" ColumnName="itemPrice" />
-                <ScalarProperty Name="itemPackageType" ColumnName="itemPackageType" />
-                <ScalarProperty Name="quantityPerPackage" ColumnName="quantityPerPackage" />
-                <ScalarProperty Name="keywords" ColumnName="keywords" />
-                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -194,11 +268,53 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="StatusCodes">
+            <EntityTypeMapping TypeName="CandiesDBModel.StatusCode">
+              <MappingFragment StoreEntitySet="StatusCodes">
+                <ScalarProperty Name="statusCodeDescription" ColumnName="statusCodeDescription" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="CandiesDBModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="productCategoryId" ColumnName="productCategoryId" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
+                <ScalarProperty Name="keywords" ColumnName="keywords" />
+                <ScalarProperty Name="quantityPerPackage" ColumnName="quantityPerPackage" />
+                <ScalarProperty Name="itemPackageType" ColumnName="itemPackageType" />
+                <ScalarProperty Name="itemPrice" ColumnName="itemPrice" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="statusCodeId" ColumnName="statusCodeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwProducts">
+            <EntityTypeMapping TypeName="CandiesDBModel.vwProduct">
+              <MappingFragment StoreEntitySet="vwProducts">
+                <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
+                <ScalarProperty Name="statusCodeDescription" ColumnName="statusCodeDescription" />
+                <ScalarProperty Name="productCategoryId" ColumnName="productCategoryId" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
+                <ScalarProperty Name="keywords" ColumnName="keywords" />
+                <ScalarProperty Name="quantityPerPackage" ColumnName="quantityPerPackage" />
+                <ScalarProperty Name="itemPackageType" ColumnName="itemPackageType" />
+                <ScalarProperty Name="itemPrice" ColumnName="itemPrice" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="statusCodeId" ColumnName="statusCodeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetProductsByCategoryId" FunctionName="CandiesDBModel.Store.GetProductsByCategoryId">
             <ResultMapping>
               <ComplexTypeMapping TypeName="CandiesDBModel.GetProductsByCategoryId_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="statusCodeId" ColumnName="statusCodeId" />
                 <ScalarProperty Name="displayName" ColumnName="displayName" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="itemPrice" ColumnName="itemPrice" />
@@ -207,7 +323,26 @@
                 <ScalarProperty Name="keywords" ColumnName="keywords" />
                 <ScalarProperty Name="imageURL" ColumnName="imageURL" />
                 <ScalarProperty Name="productCategoryId" ColumnName="productCategoryId" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="statusCodeDescription" ColumnName="statusCodeDescription" />
+                <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetProductsBySearch" FunctionName="CandiesDBModel.Store.GetProductsBySearch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CandiesDBModel.GetProductsBySearch_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="statusCodeId" ColumnName="statusCodeId" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="itemPrice" ColumnName="itemPrice" />
+                <ScalarProperty Name="itemPackageType" ColumnName="itemPackageType" />
+                <ScalarProperty Name="quantityPerPackage" ColumnName="quantityPerPackage" />
+                <ScalarProperty Name="keywords" ColumnName="keywords" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
+                <ScalarProperty Name="productCategoryId" ColumnName="productCategoryId" />
+                <ScalarProperty Name="statusCodeDescription" ColumnName="statusCodeDescription" />
+                <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

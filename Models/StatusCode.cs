@@ -12,17 +12,9 @@ namespace NetCandyStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class StatusCode
     {
         public int Id { get; set; }
-        public Nullable<byte> statusCodeId { get; set; }
-        public string displayName { get; set; }
-        public string description { get; set; }
-        public Nullable<decimal> itemPrice { get; set; }
-        public string itemPackageType { get; set; }
-        public Nullable<int> quantityPerPackage { get; set; }
-        public string keywords { get; set; }
-        public string imageURL { get; set; }
-        public Nullable<int> productCategoryId { get; set; }
+        public string statusCodeDescription { get; set; }
     }
 }

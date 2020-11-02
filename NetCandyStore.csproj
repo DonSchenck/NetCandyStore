@@ -196,6 +196,9 @@
     <Compile Include="Models\GetProductsByCategoryId_Result.cs">
       <DependentUpon>CandiesDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetProductsBySearch_Result.cs">
+      <DependentUpon>CandiesDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs">
@@ -208,6 +211,12 @@
       <DependentUpon>CandiesDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ShoppingCartItem.cs">
+      <DependentUpon>CandiesDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StatusCode.cs">
+      <DependentUpon>CandiesDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwProduct.cs">
       <DependentUpon>CandiesDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
