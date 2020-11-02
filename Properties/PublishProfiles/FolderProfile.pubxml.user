@@ -14,10 +14,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>10/29/2020 14:36:07</publishTime>
+      <publishTime>11/02/2020 14:32:51</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>10/29/2020 14:36:07</publishTime>
+      <publishTime>11/02/2020 14:32:51</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>10/23/2017 13:15:18</publishTime>
@@ -68,10 +68,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/25/2012 11:48:56</publishTime>
     </File>
     <File Include="bin/NetCandyStore.dll">
-      <publishTime>10/29/2020 14:36:00</publishTime>
+      <publishTime>11/02/2020 14:32:41</publishTime>
     </File>
     <File Include="bin/NetCandyStore.pdb">
-      <publishTime>10/29/2020 14:36:00</publishTime>
+      <publishTime>11/02/2020 14:32:41</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>04/22/2019 01:06:16</publishTime>
@@ -278,7 +278,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/26/2020 13:07:09</publishTime>
     </File>
     <File Include="Dockerfile">
-      <publishTime>10/29/2020 13:59:20</publishTime>
+      <publishTime>10/30/2020 10:17:03</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>10/26/2020 13:07:09</publishTime>
@@ -299,10 +299,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/26/2020 13:07:14</publishTime>
     </File>
     <File Include="Models/CandiesDBModel.edmx.diagram">
-      <publishTime>10/27/2020 15:08:49</publishTime>
+      <publishTime>11/02/2020 11:29:34</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>10/29/2020 14:36:01</publishTime>
+      <publishTime>11/02/2020 14:32:43</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>10/26/2020 13:07:14</publishTime>
@@ -386,7 +386,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/26/2020 13:07:09</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>10/28/2020 16:32:30</publishTime>
+      <publishTime>11/02/2020 10:20:45</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>10/26/2020 13:07:25</publishTime>
@@ -434,10 +434,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/27/2020 15:25:50</publishTime>
     </File>
     <File Include="Views/Search/Index.cshtml">
-      <publishTime>10/27/2020 15:25:51</publishTime>
+      <publishTime>11/02/2020 11:15:23</publishTime>
     </File>
     <File Include="Views/Search/SearchByCategory.cshtml">
-      <publishTime>10/28/2020 16:33:37</publishTime>
+      <publishTime>11/02/2020 11:42:43</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>10/26/2020 13:07:25</publishTime>
@@ -458,7 +458,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/26/2020 13:07:09</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/29/2020 13:57:49</publishTime>
+      <publishTime>11/02/2020 14:32:42</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 # The `FROM` instruction specifies the base image. You are
 # extending the `microsoft/aspnet` image.
 
-FROM  mcr.microsoft.com/windows/servercore:ltsc2019
+FROM  mcr.microsoft.com/dotnet/framework/aspnet:4.8
 
 RUN Powershell Add-WindowsFeature web-server
 RUN Powershell Add-WindowsFeature NET-Framework-45-ASPNET
