@@ -23,7 +23,7 @@ namespace NetCandyStore.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "NetCandyStore:latest";
+            ViewBag.Message = "NetCandyStore:nov4.2";
 
             return View();
         }

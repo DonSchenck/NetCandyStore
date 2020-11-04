@@ -1,19 +1,13 @@
 ﻿@model IEnumerable<NetCandyStore.Models.GetProductsByCategoryId_Result>
 
 @{
-    ViewBag.Title = "SearchByCategory";
+    ViewBag.Title = "Search Results";
 }
 
-<h2>SearchByCategory</h2>
+<h2>Category: @ViewBag.CategoryDescription</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
-        <th>
-            Status
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.displayName)
         </th>
@@ -23,65 +17,25 @@
         <th>
             @Html.DisplayNameFor(model => model.itemPrice)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.itemPackageType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.quantityPerPackage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.keywords)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.imageURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.productCategoryId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductCategory)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.statusCodeDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.displayName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.itemPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.itemPackageType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.quantityPerPackage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.keywords)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.imageURL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.productCategoryId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductCategory)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.displayName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.itemPrice)
+    </td>
+    <td>
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Add (Qty: 1) to cart", "AddToCart", "Cart", new { id = item.Id }, null)
+    </td>
+</tr>
 }
 
 </table>

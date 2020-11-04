@@ -22,8 +22,14 @@ namespace NetCandyStore.Controllers
 
         public ActionResult SearchByCategory(int? categoryId=1)
         {
-            return View(db.GetProductsByCategoryId(categoryId).ToList());
-//            return View(db.Products.ToList());
+            // Get list matchng search
+            List<GetProductsByCategoryId_Result> r = db.GetProductsByCategoryId(categoryId).ToList();
+
+            // Get Category Description
+            ViewBag.CategoryDescription = r.First().ProductCategory;
+
+            // Return results to View
+            return View(r);
         }
         // GET: Search/Details/5
         public ActionResult Details(int? id)
