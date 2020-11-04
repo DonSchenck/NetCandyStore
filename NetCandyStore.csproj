@@ -194,10 +194,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CandiesDBModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\database_firewall_rules.cs">
+      <DependentUpon>CandiesDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetProductsByCategoryId_Result.cs">
       <DependentUpon>CandiesDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetProductsBySearch_Result.cs">
+      <DependentUpon>CandiesDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetShoppingCartItems_Result.cs">
       <DependentUpon>CandiesDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -218,6 +224,9 @@
       <DependentUpon>CandiesDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vwProduct.cs">
+      <DependentUpon>CandiesDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwShoppingCartItem.cs">
       <DependentUpon>CandiesDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -33,6 +33,8 @@ namespace NetCandyStore.Models
         public virtual DbSet<StatusCode> StatusCodes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<vwProduct> vwProducts { get; set; }
+        public virtual DbSet<vwShoppingCartItem> vwShoppingCartItems { get; set; }
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     
         public virtual ObjectResult<GetProductsByCategoryId_Result> GetProductsByCategoryId(Nullable<int> categoryId)
         {
@@ -50,6 +52,40 @@ namespace NetCandyStore.Models
                 new ObjectParameter("searchTerm", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsBySearch_Result>("GetProductsBySearch", searchTermParameter);
+        }
+    
+        public virtual int AddToCart(string cartGUID, Nullable<int> productId, Nullable<decimal> productPrice, Nullable<int> quantity, Nullable<byte> statusCode)
+        {
+            var cartGUIDParameter = cartGUID != null ?
+                new ObjectParameter("cartGUID", cartGUID) :
+                new ObjectParameter("cartGUID", typeof(string));
+    
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("productId", productId) :
+                new ObjectParameter("productId", typeof(int));
+    
+            var productPriceParameter = productPrice.HasValue ?
+                new ObjectParameter("productPrice", productPrice) :
+                new ObjectParameter("productPrice", typeof(decimal));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("quantity", quantity) :
+                new ObjectParameter("quantity", typeof(int));
+    
+            var statusCodeParameter = statusCode.HasValue ?
+                new ObjectParameter("statusCode", statusCode) :
+                new ObjectParameter("statusCode", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddToCart", cartGUIDParameter, productIdParameter, productPriceParameter, quantityParameter, statusCodeParameter);
+        }
+    
+        public virtual ObjectResult<GetShoppingCartItems_Result> GetShoppingCartItems(string cartGUID)
+        {
+            var cartGUIDParameter = cartGUID != null ?
+                new ObjectParameter("cartGUID", cartGUID) :
+                new ObjectParameter("cartGUID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShoppingCartItems_Result>("GetShoppingCartItems", cartGUIDParameter);
         }
     }
 }

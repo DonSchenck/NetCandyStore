@@ -26,7 +26,7 @@ namespace NetCandyStore.Controllers
             List<GetProductsByCategoryId_Result> r = db.GetProductsByCategoryId(categoryId).ToList();
 
             // Get Category Description
-            ViewBag.CategoryDescription = r.First().ProductCategory;
+            ViewBag.CategoryDescription = db.ProductCategories.FirstOrDefault(c => c.Id == categoryId).displayName;
 
             // Return results to View
             return View(r);
