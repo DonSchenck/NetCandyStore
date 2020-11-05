@@ -18,10 +18,28 @@ namespace NetCandyStore.Controllers
         public ActionResult AddToCart(int? Id = 1)
         {
             // Get or Create Cart GUID
-            string cartGUID = "GUID1234";
+            string cartGUID;
+            HttpCookie cartCookie = Request.Cookies["netcandystoreCartGUID"];
+            if (cartCookie != null)
+            {
+                cartGUID = cartCookie.Value;
+            }
+            else
+            {
+                //Cookie not set.
+                cartGUID = System.Guid.NewGuid().ToString();
+                //create cookie with some ID as i have given CookName
+                cartCookie = new HttpCookie("netcandystoreCartGUID");
+                cartCookie.Value = cartGUID;
+                cartCookie.Expires = DateTime.Now.Add(TimeSpan.FromHours(200));
+                Response.Cookies.Add(cartCookie);
+            }
 
+
+            // Get item
+            Product thisProduct = db.Products.FirstOrDefault(p => p.Id == Id);
             // Get item so we have a price at the time of being added to cart
-            decimal itemPrice = 1;
+            decimal itemPrice = (decimal)thisProduct.itemPrice;
 
             // Set quantity
             int quantity = 1;
