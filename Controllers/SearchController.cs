@@ -20,9 +20,12 @@ namespace NetCandyStore.Controllers
             return View(db.Products.ToList());
         }
 
-        public ActionResult SearchByKeyword()
+        public ActionResult SearchByKeyword(FormCollection f)
         {
-            return View();
+            string searchTerm = f["searchTerm"];
+            ViewBag.SearchTerm = searchTerm;
+            List<GetProductsBySearch_Result> r = db.GetProductsBySearch(searchTerm).ToList();
+            return View(r);
         }
         public ActionResult SearchByCategory(int? categoryId=1)
         {

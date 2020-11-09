@@ -320,6 +320,7 @@
     <Content Include="Views\Search\SearchByCategory.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\BuyNow.cshtml" />
+    <Content Include="Views\Search\SearchByKeyword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

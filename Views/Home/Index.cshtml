@@ -2,11 +2,14 @@
 
 <!DOCTYPE html>
 
-    <p>
-        <h1>Search for keyword</h1>
-        Keyword: <input type="text" id="txtKeyword" />
-        @Html.ActionLink("Searcn","SearchByKeyword","Search")
-    </p>
+<p>
+    <h1>Search</h1>
+    @using (Html.BeginForm("SearchByKeyword", "Search", FormMethod.Post))
+    {
+        <b>Search for: </b> @Html.TextBox("searchTerm")
+        <input type="submit" value="Search"/>
+    }
+</p>
     <p>
         <h1>Choose a Category</h1>
     </p>
