@@ -15,6 +15,30 @@ namespace NetCandyStore.Controllers
         {
             return View();
         }
+
+        public ActionResult BuyNow()
+        {
+            // Get cart
+            // Get or Create Cart GUID
+            string cartGUID;
+            HttpCookie cartCookie = Request.Cookies["netcandystoreCartGUID"];
+            if (cartCookie != null)
+            {
+                cartGUID = cartCookie.Value;
+            }
+            else
+            {
+                //Cookie not set.
+                cartGUID = System.Guid.NewGuid().ToString();
+                //create cookie with some ID as i have given CookName
+                cartCookie = new HttpCookie("netcandystoreCartGUID");
+                cartCookie.Value = cartGUID;
+                cartCookie.Expires = DateTime.Now.Add(TimeSpan.FromHours(200));
+                Response.Cookies.Add(cartCookie);
+            }
+
+            return View();
+        }
         public ActionResult AddToCart(int? Id = 1)
         {
             // Get or Create Cart GUID

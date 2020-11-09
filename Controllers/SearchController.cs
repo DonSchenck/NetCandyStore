@@ -20,6 +20,10 @@ namespace NetCandyStore.Controllers
             return View(db.Products.ToList());
         }
 
+        public ActionResult SearchByKeyword()
+        {
+            return View();
+        }
         public ActionResult SearchByCategory(int? categoryId=1)
         {
             // Get list matchng search

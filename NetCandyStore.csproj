@@ -319,6 +319,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\SearchByCategory.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\BuyNow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
