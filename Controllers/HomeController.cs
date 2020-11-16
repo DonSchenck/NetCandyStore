@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NetCandyStore.Models;
+using Newtonsoft.Json;
+using RestSharp;
 
 namespace NetCandyStore.Controllers
 {
@@ -14,7 +16,15 @@ namespace NetCandyStore.Controllers
         {
             try
             {
-                return View(db.ProductCategories.ToList());
+                // Get Category list
+                // From database...
+                //return View(db.ProductCategories.ToList());
+                // From microservice...
+                string categoriesMicroserviceURL = Environment.GetEnvironmentVariable("categoriesMicroserviceURL");
+                var client = new RestClient(categoriesMicroserviceURL);
+                var response = client.Execute(new RestRequest());
+                var listOfCategories = JsonConvert.DeserializeObject<IEnumerable<ProductCategory>>(response.Content);
+                return View(listOfCategories);
             } catch (Exception ex)
             {
                 return View();
