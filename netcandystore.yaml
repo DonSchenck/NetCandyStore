@@ -36,7 +36,7 @@ spec:
         Effect: "NoSchedule"
       containers:
       - name: netcandystore
-        image: quay.io/donschenck/netcandystore:nov-9.1
+        image: quay.io/donschenck/netcandystore:nov17.1
         imagePullPolicy: Always
         securityContext:
           windowsOptions:

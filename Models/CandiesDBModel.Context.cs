@@ -87,5 +87,36 @@ namespace NetCandyStore.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShoppingCartItems_Result>("GetShoppingCartItems", cartGUIDParameter);
         }
+    
+        public virtual ObjectResult<GetShoppingCart_Result> GetShoppingCart(string cartGUID)
+        {
+            var cartGUIDParameter = cartGUID != null ?
+                new ObjectParameter("cartGUID", cartGUID) :
+                new ObjectParameter("cartGUID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShoppingCart_Result>("GetShoppingCart", cartGUIDParameter);
+        }
+    
+        public virtual ObjectResult<string> CreateShoppingCart(string cartGUID, Nullable<int> status)
+        {
+            var cartGUIDParameter = cartGUID != null ?
+                new ObjectParameter("cartGUID", cartGUID) :
+                new ObjectParameter("cartGUID", typeof(string));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("CreateShoppingCart", cartGUIDParameter, statusParameter);
+        }
+    
+        public virtual int CalculateCartTotal(string cartGUID)
+        {
+            var cartGUIDParameter = cartGUID != null ?
+                new ObjectParameter("cartGUID", cartGUID) :
+                new ObjectParameter("cartGUID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CalculateCartTotal", cartGUIDParameter);
+        }
     }
 }

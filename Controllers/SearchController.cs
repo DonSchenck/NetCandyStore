@@ -23,6 +23,10 @@ namespace NetCandyStore.Controllers
         public ActionResult SearchByKeyword(FormCollection f)
         {
             string searchTerm = f["searchTerm"];
+            if (string.IsNullOrEmpty(searchTerm))
+                {
+                return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri); 
+            };
             ViewBag.SearchTerm = searchTerm;
             List<GetProductsBySearch_Result> r = db.GetProductsBySearch(searchTerm).ToList();
             return View(r);

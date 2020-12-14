@@ -13,6 +13,7 @@ namespace NetCandyStore.Controllers
         // GET: Cart
         public ActionResult Index()
         {
+            Console.WriteLine("here");
             return View();
         }
 
@@ -35,9 +36,29 @@ namespace NetCandyStore.Controllers
                 cartCookie.Value = cartGUID;
                 cartCookie.Expires = DateTime.Now.Add(TimeSpan.FromHours(200));
                 Response.Cookies.Add(cartCookie);
+                db.CreateShoppingCart(cartGUID, 1);
             }
-
+            db.CalculateCartTotal(cartGUID);
             return View();
+        }
+
+        public ActionResult SubmitPayment()
+        {
+            // TODO Update Shopping Cart with payment information
+            // Navigate to Orders Summary screen
+            return View();
+        }
+        public ActionResult Payment()
+        {
+            // TODO Get cart id
+            string cartGUID;
+            HttpCookie cartCookie = Request.Cookies["netcandystoreCartGUID"];
+            cartGUID = cartCookie.Value;
+            // TODO Get cart contents
+
+            // TODO Prompt for address and payment
+            ShoppingCart sc = db.ShoppingCarts.Find(cartGUID);
+            return View(sc);
         }
         public ActionResult AddToCart(int? Id = 1)
         {
@@ -59,7 +80,6 @@ namespace NetCandyStore.Controllers
                 Response.Cookies.Add(cartCookie);
             }
 
-
             // Get item
             Product thisProduct = db.Products.FirstOrDefault(p => p.Id == Id);
             // Get item so we have a price at the time of being added to cart
@@ -73,6 +93,7 @@ namespace NetCandyStore.Controllers
 
             // Add to cart
             db.AddToCart(cartGUID, Id, itemPrice, quantity, status);
+            db.SaveChanges();
             //            List<GetProductsByCategoryId_Result> r = db.GetProductsByCategoryId(categoryId).ToList();
 
             // Get Shopping Cart items

@@ -125,11 +125,21 @@ warning 6002: The table/view 'CandiesDB.sys.database_firewall_rules' does not ha
           <Parameter Name="quantity" Type="int" Mode="In" />
           <Parameter Name="statusCode" Type="tinyint" Mode="In" />
         </Function>
+        <Function Name="CalculateCartTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cartGUID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="CreateShoppingCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cartGUID" Type="varchar" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetProductsByCategoryId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="categoryId" Type="int" Mode="In" />
         </Function>
         <Function Name="GetProductsBySearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="searchTerm" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetShoppingCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cartGUID" Type="varchar" Mode="In" />
         </Function>
         <Function Name="GetShoppingCartItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cartGUID" Type="varchar" Mode="In" />
@@ -244,6 +254,16 @@ warning 6002: The table/view 'CandiesDB.sys.database_firewall_rules' does not ha
             <Parameter Name="statusCode" Mode="In" Type="Byte" />
           </FunctionImport>
           <FunctionImport Name="GetShoppingCartItems" ReturnType="Collection(CandiesDBModel.GetShoppingCartItems_Result)">
+          <Parameter Name="cartGUID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetShoppingCart" ReturnType="Collection(CandiesDBModel.GetShoppingCart_Result)">
+          <Parameter Name="cartGUID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CreateShoppingCart" ReturnType="Collection(String)">
+            <Parameter Name="cartGUID" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CalculateCartTotal">
             <Parameter Name="cartGUID" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
@@ -363,6 +383,18 @@ warning 6002: The table/view 'CandiesDB.sys.database_firewall_rules' does not ha
           <Property Type="Int32" Name="productCategoryId" Nullable="true" />
           <Property Type="Int32" Name="quantityPerPackage" Nullable="true" />
           <Property Type="String" Name="ProductCategory" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetShoppingCart_Result">
+          <Property Type="String" Name="cartGUID" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="cartStatus" Nullable="false" />
+          <Property Type="String" Name="buyerName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="buyerAddress1" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="buyerAddress2" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="buyerCity" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="buyerState" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="buyerZipCode" Nullable="true" MaxLength="5" />
+          <Property Type="Decimal" Name="cartTotal" Nullable="true" Precision="19" />
+          <Property Type="String" Name="statusCodeDescription" Nullable="true" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -535,6 +567,24 @@ warning 6002: The table/view 'CandiesDB.sys.database_firewall_rules' does not ha
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetShoppingCart" FunctionName="CandiesDBModel.Store.GetShoppingCart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CandiesDBModel.GetShoppingCart_Result">
+                <ScalarProperty Name="cartGUID" ColumnName="cartGUID" />
+                <ScalarProperty Name="cartStatus" ColumnName="cartStatus" />
+                <ScalarProperty Name="buyerName" ColumnName="buyerName" />
+                <ScalarProperty Name="buyerAddress1" ColumnName="buyerAddress1" />
+                <ScalarProperty Name="buyerAddress2" ColumnName="buyerAddress2" />
+                <ScalarProperty Name="buyerCity" ColumnName="buyerCity" />
+                <ScalarProperty Name="buyerState" ColumnName="buyerState" />
+                <ScalarProperty Name="buyerZipCode" ColumnName="buyerZipCode" />
+                <ScalarProperty Name="cartTotal" ColumnName="cartTotal" />
+                <ScalarProperty Name="statusCodeDescription" ColumnName="statusCodeDescription" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CreateShoppingCart" FunctionName="CandiesDBModel.Store.CreateShoppingCart" />
+          <FunctionImportMapping FunctionImportName="CalculateCartTotal" FunctionName="CandiesDBModel.Store.CalculateCartTotal" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
