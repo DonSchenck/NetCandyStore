@@ -27,6 +27,7 @@ namespace NetCandyStore.Controllers
             {
                 cartGUID = cartCookie.Value;
                 db.CreateShoppingCart(cartGUID, 1);
+                db.SaveChanges();
             }
             else
             {
@@ -38,6 +39,7 @@ namespace NetCandyStore.Controllers
                 cartCookie.Expires = DateTime.Now.Add(TimeSpan.FromHours(200));
                 Response.Cookies.Add(cartCookie);
                 db.CreateShoppingCart(cartGUID, 1);
+                db.SaveChanges();
             }
             db.CalculateCartTotal(cartGUID);
             return View();

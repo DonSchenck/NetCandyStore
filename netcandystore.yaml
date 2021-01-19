@@ -36,7 +36,10 @@ spec:
         Effect: "NoSchedule"
       containers:
       - name: netcandystore
-        image: quay.io/donschenck/netcandystore:jan19.4
+        image: quay.io/donschenck/netcandystore:jan19.5
+        env:
+          - name: categoriesMicroserviceURL
+            value: 'http://getcategories:8080/categories'
         imagePullPolicy: Always
         securityContext:
           windowsOptions:
