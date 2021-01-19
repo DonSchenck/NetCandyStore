@@ -21,7 +21,6 @@ namespace NetCandyStore.Controllers
                 //return View(db.ProductCategories.ToList());
                 // From microservice...
                 string categoriesMicroserviceURL = Environment.GetEnvironmentVariable("categoriesMicroserviceURL");
-                categoriesMicroserviceURL = "http://getcategories-candystoredb.apps.cluster-yorkpa-8148.yorkpa-8148.sandbox893.opentlc.com/categories";
                 var client = new RestClient(categoriesMicroserviceURL);
                 var response = client.Execute(new RestRequest());
                 var listOfCategories = JsonConvert.DeserializeObject<IEnumerable<ProductCategory>>(response.Content);
