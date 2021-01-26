@@ -13,7 +13,6 @@ namespace NetCandyStore.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            Console.WriteLine("here");
             return View();
         }
 
@@ -33,22 +32,35 @@ namespace NetCandyStore.Controllers
             {
                 //Cookie not set.
                 cartGUID = System.Guid.NewGuid().ToString();
-                //create cookie with some ID as i have given CookName
-                cartCookie = new HttpCookie("netcandystoreCartGUID");
-                cartCookie.Value = cartGUID;
-                cartCookie.Expires = DateTime.Now.Add(TimeSpan.FromHours(200));
-                Response.Cookies.Add(cartCookie);
+                //create cookie 
+                HttpCookie mycookie = new HttpCookie("netcandystore");
+                mycookie["cartguid"] = cartGUID;
+                mycookie.Expires.Add(new TimeSpan(0, 1, 0));
+                Response.Cookies.Add(mycookie);
+
                 db.CreateShoppingCart(cartGUID, 1);
                 db.SaveChanges();
             }
-            db.CalculateCartTotal(cartGUID);
+            //db.CalculateCartTotal(cartGUID);
+            var cart = db.GetShoppingCart(cartGUID);
+            var items = db.GetShoppingCartItems(cartGUID);
             return View();
         }
 
         public ActionResult SubmitPayment()
         {
             // TODO Update Shopping Cart with payment information
-            // Navigate to Orders Summary screen
+
+            // Replace shopping cart cookie, i.e. start a new cart
+            var cookie = new System.Web.HttpCookie("netcandystoreCartGUID");
+            string cartGUID = System.Guid.NewGuid().ToString();
+            cookie.Value = cartGUID;
+            cookie.Expires = DateTime.Now.AddDays(28);
+            cookie.SameSite = System.Web.SameSiteMode.None;
+            cookie.Secure = true;
+            this.HttpContext.Response.Cookies.Add(cookie);
+
+            // TODO Navigate to Orders Summary screen
             return View();
         }
         public ActionResult Payment()

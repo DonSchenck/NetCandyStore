@@ -27,23 +27,15 @@ namespace NetCandyStore.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         public virtual DbSet<StatusCode> StatusCodes { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<vwProduct> vwProducts { get; set; }
+        public virtual DbSet<vwShoppingCart> vwShoppingCarts { get; set; }
         public virtual DbSet<vwShoppingCartItem> vwShoppingCartItems { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
-    
-        public virtual ObjectResult<GetProductsByCategoryId_Result> GetProductsByCategoryId(Nullable<int> categoryId)
-        {
-            var categoryIdParameter = categoryId.HasValue ?
-                new ObjectParameter("categoryId", categoryId) :
-                new ObjectParameter("categoryId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsByCategoryId_Result>("GetProductsByCategoryId", categoryIdParameter);
-        }
     
         public virtual ObjectResult<GetProductsBySearch_Result> GetProductsBySearch(string searchTerm)
         {
@@ -52,6 +44,15 @@ namespace NetCandyStore.Models
                 new ObjectParameter("searchTerm", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsBySearch_Result>("GetProductsBySearch", searchTermParameter);
+        }
+    
+        public virtual ObjectResult<GetProductsByCategoryId_Result> GetProductsByCategoryId(Nullable<int> categoryId)
+        {
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("categoryId", categoryId) :
+                new ObjectParameter("categoryId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsByCategoryId_Result>("GetProductsByCategoryId", categoryIdParameter);
         }
     
         public virtual int AddToCart(string cartGUID, Nullable<int> productId, Nullable<decimal> productPrice, Nullable<int> quantity, Nullable<byte> statusCode)
@@ -88,16 +89,7 @@ namespace NetCandyStore.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShoppingCartItems_Result>("GetShoppingCartItems", cartGUIDParameter);
         }
     
-        public virtual ObjectResult<GetShoppingCart_Result> GetShoppingCart(string cartGUID)
-        {
-            var cartGUIDParameter = cartGUID != null ?
-                new ObjectParameter("cartGUID", cartGUID) :
-                new ObjectParameter("cartGUID", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShoppingCart_Result>("GetShoppingCart", cartGUIDParameter);
-        }
-    
-        public virtual ObjectResult<string> CreateShoppingCart(string cartGUID, Nullable<int> status)
+        public virtual int CreateShoppingCart(string cartGUID, Nullable<byte> status)
         {
             var cartGUIDParameter = cartGUID != null ?
                 new ObjectParameter("cartGUID", cartGUID) :
@@ -105,9 +97,9 @@ namespace NetCandyStore.Models
     
             var statusParameter = status.HasValue ?
                 new ObjectParameter("status", status) :
-                new ObjectParameter("status", typeof(int));
+                new ObjectParameter("status", typeof(byte));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("CreateShoppingCart", cartGUIDParameter, statusParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateShoppingCart", cartGUIDParameter, statusParameter);
         }
     
         public virtual int CalculateCartTotal(string cartGUID)
@@ -117,6 +109,15 @@ namespace NetCandyStore.Models
                 new ObjectParameter("cartGUID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CalculateCartTotal", cartGUIDParameter);
+        }
+    
+        public virtual ObjectResult<GetShoppingCart_Result> GetShoppingCart(string cartGUID)
+        {
+            var cartGUIDParameter = cartGUID != null ?
+                new ObjectParameter("cartGUID", cartGUID) :
+                new ObjectParameter("cartGUID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShoppingCart_Result>("GetShoppingCart", cartGUIDParameter);
         }
     }
 }
