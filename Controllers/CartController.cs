@@ -22,7 +22,7 @@ namespace NetCandyStore.Controllers
             // Get or Create Cart GUID
             string cartGUID;
             HttpCookie cartCookie = Request.Cookies["netcandystoreCartGUID"];
-            if (cartCookie.Values["cartGUID"] != null)
+            if (cartCookie != null && cartCookie.Values["cartGUID"] != null)
             {
                 cartGUID = cartCookie.Values["cartGUID"];
                 db.CreateShoppingCart(cartGUID, 1);
@@ -78,7 +78,7 @@ namespace NetCandyStore.Controllers
             // Get or Create Cart GUID
             string cartGUID;
             HttpCookie cartCookie = Request.Cookies["netcandystoreCartGUID"];
-            if (cartCookie.Values["cartGUID"] != null)
+            if (cartCookie != null && cartCookie.Values["cartGUID"] != null)
             {
                 cartGUID = cartCookie.Values["cartGUID"];
             }
