@@ -36,7 +36,7 @@ spec:
         Effect: "NoSchedule"
       containers:
       - name: netcandystore
-        image: quay.io/donschenck/netcandystore:jan19.6
+        image: quay.io/donschenck/netcandystore:jan29.1
         env:
           - name: categoriesMicroserviceURL
             value: 'http://getcategories:8080/categories'

@@ -22,9 +22,9 @@ namespace NetCandyStore.Controllers
             // Get or Create Cart GUID
             string cartGUID;
             HttpCookie cartCookie = Request.Cookies["netcandystoreCartGUID"];
-            if (cartCookie != null)
+            if (cartCookie.Values["cartGUID"] != null)
             {
-                cartGUID = cartCookie.Value;
+                cartGUID = cartCookie.Values["cartGUID"];
                 db.CreateShoppingCart(cartGUID, 1);
                 db.SaveChanges();
             }
@@ -34,8 +34,7 @@ namespace NetCandyStore.Controllers
                 cartGUID = System.Guid.NewGuid().ToString();
                 //create cookie 
                 HttpCookie mycookie = new HttpCookie("netcandystore");
-                mycookie["cartguid"] = cartGUID;
-                mycookie.Expires.Add(new TimeSpan(0, 1, 0));
+                mycookie.Values["cartGUID"] = cartGUID;
                 Response.Cookies.Add(mycookie);
 
                 db.CreateShoppingCart(cartGUID, 1);
@@ -52,13 +51,12 @@ namespace NetCandyStore.Controllers
             // TODO Update Shopping Cart with payment information
 
             // Replace shopping cart cookie, i.e. start a new cart
-            var cookie = new System.Web.HttpCookie("netcandystoreCartGUID");
+            HttpCookie cartCookie = Request.Cookies["netcandystoreCartGUID"];
             string cartGUID = System.Guid.NewGuid().ToString();
-            cookie.Value = cartGUID;
-            cookie.Expires = DateTime.Now.AddDays(28);
-            cookie.SameSite = System.Web.SameSiteMode.None;
-            cookie.Secure = true;
-            this.HttpContext.Response.Cookies.Add(cookie);
+            cartCookie.Values["cartGUID"] = cartGUID;
+            cartCookie.Expires = DateTime.UtcNow.AddDays(30);
+            Response.Cookies.Add(cartCookie);
+
 
             // TODO Navigate to Orders Summary screen
             return View();
@@ -68,7 +66,7 @@ namespace NetCandyStore.Controllers
             // TODO Get cart id
             string cartGUID;
             HttpCookie cartCookie = Request.Cookies["netcandystoreCartGUID"];
-            cartGUID = cartCookie.Value;
+            cartGUID = cartCookie.Values["cartGUID"];
             // TODO Get cart contents
 
             // TODO Prompt for address and payment
@@ -80,9 +78,9 @@ namespace NetCandyStore.Controllers
             // Get or Create Cart GUID
             string cartGUID;
             HttpCookie cartCookie = Request.Cookies["netcandystoreCartGUID"];
-            if (cartCookie != null)
+            if (cartCookie.Values["cartGUID"] != null)
             {
-                cartGUID = cartCookie.Value;
+                cartGUID = cartCookie.Values["cartGUID"];
             }
             else
             {
@@ -90,7 +88,7 @@ namespace NetCandyStore.Controllers
                 cartGUID = System.Guid.NewGuid().ToString();
                 //create cookie with some ID as i have given CookName
                 cartCookie = new HttpCookie("netcandystoreCartGUID");
-                cartCookie.Value = cartGUID;
+                cartCookie.Values["cartGUID"] = cartGUID;
                 cartCookie.Expires = DateTime.Now.Add(TimeSpan.FromHours(200));
                 Response.Cookies.Add(cartCookie);
             }
