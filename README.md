@@ -24,21 +24,22 @@ At the command line, run the command
 
 Alternatively, you can use the OpenShift console to create the new project "netcandystore".
 
-## Step 3: Create a MS SQL Server database
+## Step 3: Create and populate the MS SQL Server database
 For the purposes of this demo, this instance of MS SQL Server will run in our OpenShift cluster.
 
 ### Linux and macOS
+TODO: Convert create_database.ps1 to run in bash
 Run the script `create_database.sh`  
 
 ### PowerShell
 Run the script `create_database.ps1`
 
-## Step 4: Populate the MS SQL Server database
-### Linux and macOS
-Run the script `populate_database.sh`
-### PowerShell
-Run the script `populate_database.ps1`
-## Step 5: Create the service 'netcandystore' using image netcandystore:v1
+## Step 5: Create the service 'netcandystore'
+The service runs in a Windows Containeer and uses the image quay.io/donschenck/netcandystore:2021feb2.1
+
+Run the following command:  
+`oc apply -f netcandystore.yaml`
+
 ## Step 6: Create route for service 'netcandystore'
 ## Step 7: Create the service 'getcategories'
 ## Step 8: Replace the service 'netcandystore' using image netcandystore:v2
