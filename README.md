@@ -34,7 +34,7 @@ Run the script `create_database.sh`
 ### PowerShell
 Run the script `create_database.ps1`
 
-## Step 5: Create the service 'netcandystore'
+## Step 4: Create the service 'netcandystore'
 The service runs in a Windows Containeer and uses the image quay.io/donschenck/netcandystore:2021feb2.1
 
 Run the following command:  
@@ -42,4 +42,3 @@ Run the following command:
 
 ## Step 6: Create route for service 'netcandystore'
 ## Step 7: Create the service 'getcategories'
-## Step 8: Replace the service 'netcandystore' using image netcandystore:v2
