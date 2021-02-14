@@ -37,8 +37,26 @@ Run the script `create_database.ps1`
 ## Step 4: Create the service 'netcandystore'
 The service runs in a Windows Containeer and uses the image quay.io/donschenck/netcandystore:2021feb2.1
 
-Run the following command:  
+### PowerShell  
+
+Run the command:  
+`./preload.ps1` 
+
+Run the command:  
+`oc apply -f preload.yaml`  
+
+
+Run the command:  
 `oc apply -f netcandystore.yaml`
 
 ## Step 6: Create route for service 'netcandystore'
+
+### PowerShell
+Run the command:  
+`oc apply -f netcandystore-route.yaml`  
+
 ## Step 7: Create the service 'getcategories'
+### PowerShell  
+Run the command:  
+`oc apply -f getcategories.yaml`
+

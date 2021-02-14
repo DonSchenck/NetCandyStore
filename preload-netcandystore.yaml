@@ -12,7 +12,7 @@ spec:
         - /bin/bash
         - -c
         - |
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/ssh/private-key.pem administrator@ip-10-0-135-48.us-east-2.compute.internal docker pull quay.io/donschenck/netcandystore:2021feb2.1
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/ssh/private-key.pem administrator@{jacksparrow} docker pull quay.io/donschenck/netcandystore:2021feb2.1
         image: quay.io/redhatworkshops/winc-ssh:latest
         name: windows-image-pull
         volumeMounts:
