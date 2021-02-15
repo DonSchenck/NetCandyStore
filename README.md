@@ -28,23 +28,30 @@ Alternatively, you can use the OpenShift console to create the new project "netc
 For the purposes of this demo, this instance of MS SQL Server will run in our OpenShift cluster.
 
 ### Linux and macOS
-TODO: Convert create_database.ps1 to run in bash
 Run the script `create_database.sh`  
 
 ### PowerShell
 Run the script `create_database.ps1`
 
-## Step 4: Create the service 'netcandystore'
-The service runs in a Windows Containeer and uses the image quay.io/donschenck/netcandystore:2021feb2.1
+## Step 5: Prepare Windows Container node
+This step will pull the image into the node running Windows Containers.
+
+### Linux and macOS  
+Run the commands:  
+`./preload.sh`  
+`./preload-netcandystore.sh`
 
 ### PowerShell  
 
 Run the command:  
-`./preload.ps1` 
+`./preload.ps1`  
+`./preload-netcandystore.ps1`
+
+## Step 5: Create the service 'netcandystore'
+The service runs in a Windows Containeer and uses the image quay.io/donschenck/netcandystore:2021feb2.1
 
 Run the command:  
 `oc apply -f preload.yaml`  
-
 
 Run the command:  
 `oc apply -f netcandystore.yaml`
