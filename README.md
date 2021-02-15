@@ -7,13 +7,13 @@
 
 # Table of Contents/Steps
 1. Create a cluster that supports Windows Containers
-1. Create a project `oc new-project netcandystore`
-1. Create a MS SQL Server database
-1. Populate the MS SQL Server database
-1. Create the service 'netcandystore' using image netcandystore:v1
+1. Create a project
+1. Create and populate the MS SQL Server database
+1. Prepare Windows Container node
+1. Create the service 'netcandystore'
 1. Create route for service 'netcandystore'
 1. Create the service 'getcategories'
-1. Replace the service 'netcandystore" using image netcandystore:v2
+1. COMING SOON: Replace the service 'netcandystore" using image netcandystore:v2
 
 ## Step 1: Create a cluster the supports Windows Containers
 (some RHPDS magic here)
@@ -33,7 +33,7 @@ Run the script `create_database.sh`
 ### PowerShell
 Run the script `create_database.ps1`
 
-## Step 5: Prepare Windows Container node
+## Step 4: Prepare Windows Container node
 This step will pull the image into the node running Windows Containers.
 
 ### Linux and macOS  
