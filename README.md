@@ -39,13 +39,11 @@ This step will pull the image into the node running Windows Containers.
 ### Linux and macOS  
 Run the commands:  
 `./preload.sh`  
-`./preload-netcandystore.sh`
 
 ### PowerShell  
 
 Run the command:  
 `./preload.ps1`  
-`./preload-netcandystore.ps1`
 
 ## Step 5: Create the service 'netcandystore'
 The service runs in a Windows Containeer and uses the image quay.io/donschenck/netcandystore:2021feb2.1
