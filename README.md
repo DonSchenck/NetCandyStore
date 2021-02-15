@@ -37,8 +37,8 @@ Run the script `create_database.ps1`
 This step will pull the image into the node running Windows Containers.
 
 ### Linux and macOS  
-Run the commands:  
-`./preload.sh`  
+Run the command:  
+`./prepare-preload.sh`  
 
 ### PowerShell  
 
