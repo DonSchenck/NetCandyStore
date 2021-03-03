@@ -274,6 +274,7 @@
       <DependentUpon>CandiesDBModel.edmx</DependentUpon>
       <LastGenOutput>CandiesDBModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Images\Net_Candystore_LogosA.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\CandiesDBModel.edmx">

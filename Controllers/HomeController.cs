@@ -16,15 +16,14 @@ namespace NetCandyStore.Controllers
         {
             try
             {
-                // Get Category list
-                // From database...
-                //return View(db.ProductCategories.ToList());
-                // From microservice...
+                // Get Category list from microservice...
                 string categoriesMicroserviceURL = Environment.GetEnvironmentVariable("categoriesMicroserviceURL");
                 var client = new RestClient(categoriesMicroserviceURL);
                 var response = client.Execute(new RestRequest());
                 var listOfCategories = JsonConvert.DeserializeObject<IEnumerable<ProductCategory>>(response.Content);
+
                 return View(listOfCategories);
+
             } catch (Exception ex)
             {
                 return View();
