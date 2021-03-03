@@ -222,9 +222,6 @@ warning 6002: The table/view 'CandiesDB.sys.database_firewall_rules' does not ha
     <edmx:ConceptualModels>
       <Schema Namespace="CandiesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CandiesDBEntities" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="GetProductsBySearch" ReturnType="Collection(CandiesDBModel.GetProductsBySearch_Result)">
-          <Parameter Name="searchTerm" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="GetProductsByCategoryId" ReturnType="Collection(CandiesDBModel.GetProductsByCategoryId_Result)">
           <Parameter Name="categoryId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -256,6 +253,9 @@ warning 6002: The table/view 'CandiesDB.sys.database_firewall_rules' does not ha
           </FunctionImport>
           <FunctionImport Name="GetShoppingCart" ReturnType="Collection(CandiesDBModel.GetShoppingCart_Result)">
             <Parameter Name="cartGUID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetProductsBySearch" ReturnType="Collection(CandiesDBModel.GetProductsBySearch_Result)">
+            <Parameter Name="searchTerm" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetProductsByCategoryId_Result">
@@ -675,6 +675,24 @@ warning 6002: The table/view 'CandiesDB.sys.database_firewall_rules' does not ha
                 <ScalarProperty Name="buyerZipCode" ColumnName="buyerZipCode" />
                 <ScalarProperty Name="cartTotal" ColumnName="cartTotal" />
                 <ScalarProperty Name="statusCodeDescription" ColumnName="statusCodeDescription" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetProductsBySearch" FunctionName="CandiesDBModel.Store.GetProductsBySearch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CandiesDBModel.GetProductsBySearch_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="statusCodeId" ColumnName="statusCodeId" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="itemPrice" ColumnName="itemPrice" />
+                <ScalarProperty Name="itemPackageType" ColumnName="itemPackageType" />
+                <ScalarProperty Name="quantityPerPackage" ColumnName="quantityPerPackage" />
+                <ScalarProperty Name="keywords" ColumnName="keywords" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
+                <ScalarProperty Name="productCategoryId" ColumnName="productCategoryId" />
+                <ScalarProperty Name="statusCodeDescription" ColumnName="statusCodeDescription" />
+                <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

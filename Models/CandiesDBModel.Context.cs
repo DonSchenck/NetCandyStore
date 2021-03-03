@@ -37,15 +37,6 @@ namespace NetCandyStore.Models
         public virtual DbSet<vwShoppingCart> vwShoppingCarts { get; set; }
         public virtual DbSet<vwShoppingCartItem> vwShoppingCartItems { get; set; }
     
-        public virtual ObjectResult<GetProductsBySearch_Result> GetProductsBySearch(string searchTerm)
-        {
-            var searchTermParameter = searchTerm != null ?
-                new ObjectParameter("searchTerm", searchTerm) :
-                new ObjectParameter("searchTerm", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsBySearch_Result>("GetProductsBySearch", searchTermParameter);
-        }
-    
         public virtual ObjectResult<GetProductsByCategoryId_Result> GetProductsByCategoryId(Nullable<int> categoryId)
         {
             var categoryIdParameter = categoryId.HasValue ?
@@ -118,6 +109,15 @@ namespace NetCandyStore.Models
                 new ObjectParameter("cartGUID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShoppingCart_Result>("GetShoppingCart", cartGUIDParameter);
+        }
+    
+        public virtual ObjectResult<GetProductsBySearch_Result> GetProductsBySearch(string searchTerm)
+        {
+            var searchTermParameter = searchTerm != null ?
+                new ObjectParameter("searchTerm", searchTerm) :
+                new ObjectParameter("searchTerm", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsBySearch_Result>("GetProductsBySearch", searchTermParameter);
         }
     }
 }
