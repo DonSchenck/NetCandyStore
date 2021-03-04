@@ -46,7 +46,7 @@ Run the command:
 `./preload.ps1`  
 
 ## Step 5: Create the service 'netcandystore'
-The service runs in a Windows Containeer and uses the image quay.io/donschenck/netcandystore:2021feb2.1
+The service runs in a Windows Container and uses the image quay.io/donschenck/netcandystore:2021feb2.1
 
 Run the command:  
 `oc apply -f preload.yaml`  
