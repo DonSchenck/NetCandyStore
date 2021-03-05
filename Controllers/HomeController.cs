@@ -18,6 +18,7 @@ namespace NetCandyStore.Controllers
             {
                 // Get Category list from microservice...
                 string categoriesMicroserviceURL = Environment.GetEnvironmentVariable("categoriesMicroserviceURL");
+                categoriesMicroserviceURL = "http://getcategories-route-netcandystore.apps.cluster-payork-a749.payork-a749.sandbox677.opentlc.com/categories";
                 var client = new RestClient(categoriesMicroserviceURL);
                 var response = client.Execute(new RestRequest());
                 var listOfCategories = JsonConvert.DeserializeObject<IEnumerable<ProductCategory>>(response.Content);
@@ -32,7 +33,7 @@ namespace NetCandyStore.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "NetCandyStore:dec14.1";
+            ViewBag.Message = "NetCandyStore:2021Mar8.1";
 
             return View();
         }
