@@ -4,7 +4,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_PublishTargetUrl>bin\app.publish\</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Users\dschenck\src\github\donschenck\NetCandyStore\bin\app.publish\</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -14,16 +14,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>01/13/2021 14:12:37</publishTime>
+      <publishTime>03/16/2021 13:12:29</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>01/13/2021 14:12:37</publishTime>
+      <publishTime>03/16/2021 13:12:29</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
-      <publishTime>10/23/2017 13:15:18</publishTime>
+      <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
-      <publishTime>10/23/2017 13:15:20</publishTime>
+      <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>11/25/2019 09:57:50</publishTime>
@@ -68,10 +68,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/25/2012 11:48:56</publishTime>
     </File>
     <File Include="bin/NetCandyStore.dll">
-      <publishTime>01/13/2021 14:12:27</publishTime>
+      <publishTime>03/16/2021 13:12:20</publishTime>
     </File>
     <File Include="bin/NetCandyStore.pdb">
-      <publishTime>01/13/2021 14:12:27</publishTime>
+      <publishTime>03/16/2021 13:12:20</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>04/22/2019 01:06:16</publishTime>
@@ -253,6 +253,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="bin/WebGrease.dll">
       <publishTime>01/23/2014 12:57:34</publishTime>
     </File>
+    <File Include="Content/bootstrap-minty.css">
+      <publishTime>02/15/2021 16:12:12</publishTime>
+    </File>
     <File Include="Content/bootstrap-theme.css">
       <publishTime>12/14/2020 16:19:18</publishTime>
     </File>
@@ -278,10 +281,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/14/2020 16:19:17</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>12/14/2020 16:19:13</publishTime>
+      <publishTime>03/03/2021 14:11:06</publishTime>
     </File>
     <File Include="Dockerfile">
-      <publishTime>11/02/2020 15:19:49</publishTime>
+      <publishTime>01/18/2021 15:41:59</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>10/26/2020 13:07:09</publishTime>
@@ -301,14 +304,20 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="fonts/glyphicons-halflings-regular.woff2">
       <publishTime>10/26/2020 13:07:14</publishTime>
     </File>
+    <File Include="Images/Net_Candystore_LogosA.png">
+      <publishTime>03/03/2021 13:19:27</publishTime>
+    </File>
     <File Include="Models/CandiesDBModel.edmx.diagram">
-      <publishTime>11/04/2020 14:19:17</publishTime>
+      <publishTime>01/22/2021 14:34:37</publishTime>
+    </File>
+    <File Include="Models/CandiesDBModel.edmx.sql">
+      <publishTime>01/20/2021 14:04:16</publishTime>
     </File>
     <File Include="netcandystore.yaml">
-      <publishTime>11/17/2020 12:32:07</publishTime>
+      <publishTime>02/02/2021 14:41:45</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>01/13/2021 14:12:28</publishTime>
+      <publishTime>03/16/2021 13:12:23</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>10/26/2020 13:07:14</publishTime>
@@ -394,6 +403,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Cart/Payment.cshtml">
       <publishTime>12/02/2020 16:19:14</publishTime>
     </File>
+    <File Include="Views/Cart/SubmitPayment.cshtml">
+      <publishTime>01/26/2021 10:52:36</publishTime>
+    </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>10/26/2020 13:42:21</publishTime>
     </File>
@@ -401,7 +413,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/04/2020 10:25:52</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>11/09/2020 13:32:01</publishTime>
+      <publishTime>03/03/2021 14:16:50</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>10/26/2020 13:07:25</publishTime>
@@ -443,13 +455,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/27/2020 15:25:47</publishTime>
     </File>
     <File Include="Views/Search/Details.cshtml">
-      <publishTime>10/27/2020 15:25:49</publishTime>
+      <publishTime>03/02/2021 16:49:12</publishTime>
     </File>
     <File Include="Views/Search/Edit.cshtml">
       <publishTime>10/27/2020 15:25:50</publishTime>
     </File>
     <File Include="Views/Search/Index.cshtml">
-      <publishTime>11/04/2020 10:25:52</publishTime>
+      <publishTime>03/02/2021 16:50:52</publishTime>
     </File>
     <File Include="Views/Search/SearchByCategory.cshtml">
       <publishTime>11/04/2020 15:28:12</publishTime>
@@ -464,7 +476,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/26/2020 13:07:25</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/02/2020 13:40:30</publishTime>
+      <publishTime>03/03/2021 13:23:27</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>10/26/2020 13:07:25</publishTime>
@@ -476,7 +488,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/26/2020 13:07:09</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/13/2021 14:11:51</publishTime>
+      <publishTime>03/16/2021 13:12:21</publishTime>
     </File>
   </ItemGroup>
 </Project>

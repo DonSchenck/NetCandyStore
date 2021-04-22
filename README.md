@@ -46,10 +46,15 @@ Run the command:
 `./preload.ps1`  
 
 ## Step 5: Create the service 'netcandystore'
-The service runs in a Windows Container and uses the image quay.io/donschenck/netcandystore:2021feb2.1
+The service runs in a Windows Container and uses the image quay.io/donschenck/netcandystore:2021mar8.1
 
 Run the command:  
-`oc apply -f preload.yaml`  
+`oc create -f preload.yaml`  
+
+Run the following command and wait until the preload job is finished:  
+`oc get jobs -n openshift-windows-machine-config-operator -w`
+
+When the job is completed, press Ctrl-C to exit the wait command.
 
 Run the command:  
 `oc apply -f netcandystore.yaml`
